@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Type Detector</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>File Type Detector</h1>
+      <p class="subtitle">Detect and open files with correct MIME type</p>
+    </header>
+
+    <div class="input-section">
+      <div class="current-url-display" id="currentUrlDisplay">
+        <span class="url-label">Current Page:</span>
+        <span class="url-text" id="currentUrlText">Loading...</span>
+      </div>
+      <button id="detectBtn" class="btn-primary">
+        <span class="btn-text">Determine File Type of This Page</span>
+        <span class="spinner" id="spinner"></span>
+      </button>
+    </div>
+
+    <div class="result-section" id="resultSection" style="display: none;">
+      <div class="result-card">
+        <div class="result-header">
+          <span class="result-label">Detected MIME Type</span>
+          <span class="success-checkmark" id="checkmark">✓</span>
+        </div>
+        <div class="mime-type" id="mimeType">-</div>
+        <div class="detection-method" id="detectionMethod"></div>
+
+        <!-- MOV file warning message -->
+        <div id="movWarning" class="mov-warning" style="display: none;">
+          <div class="warning-text">
+            <strong>This file type (.mov) cannot be displayed in a browser tab.</strong>
+            <p>You can use the video preview tool below OR download the file by using the open in new tab button.</p>
+          </div>
+        </div>
+        
+        <div class="technical-details" id="technicalDetails">
+          <div class="detail-row">
+            <span class="detail-label">Status Code:</span>
+            <span class="detail-value" id="statusCode">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">File Size:</span>
+            <span class="detail-value" id="fileSize">-</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video Preview Section -->
+      <div class="video-preview-section" id="videoPreviewSection" style="display: none;">
+        <div class="video-preview-header">
+          <h3>Video Preview</h3>
+          <small>If the link is missing, paste the current url</small>
+
+          <button id="closeVideoPreview" class="close-btn" title="Close preview">×</button>
+        </div>
+        <div class="video-url-input-container">
+          <input 
+            type="text" 
+            id="videoUrlInput" 
+            class="video-url-input" 
+            placeholder="Paste video URL here (e.g., .mov, .mp4, .webm, .3gp)"
+          />
+          <button id="loadVideoBtn" class="btn-secondary">
+            <span class="btn-text">Load Video</span>
+            <span class="spinner" id="videoLoadSpinner"></span>
+          </button>
+        </div>
+        <div class="video-player-container" id="videoPlayerContainer" style="display: none;">
+          <video id="videoPlayer" controls preload="metadata" style="width: 100%; max-height: 400px; background: #000;">
+            Your browser does not support the video tag.
+          </video>
+          <div class="video-info" id="videoInfo"></div>
+        </div>
+        <div class="video-error" id="videoError" style="display: none;"></div>
+      </div>
+
+      <button id="openBtn" class="btn-primary" disabled>
+        Open in New Tab with Correct Type
+      </button>
+    </div>
+
+    <div class="message-area" id="messageArea"></div>
+  </div>
+
+  <!-- FFmpeg.wasm for MOV file conversion (local to satisfy extension CSP) -->
+  <script src="vendor/ffmpeg/ffmpeg.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
