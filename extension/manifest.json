@@ -1,18 +1,12 @@
 {
   "manifest_version": 3,
-  "name": "File Type Detector",
-  "version": "2.0.0",
-  "description": "Detect the real file type of any URL and open it with the correct MIME type",
-  "author": "mia",
+  "name": "Media File Viewer",
+  "version": "1.0.0",
+  "description": "Detect file types and open media with the correct MIME type on supported document sites.",
+  "author": "HelloItsMia.tech",
   "permissions": [
     "activeTab",
     "tabs"
-  ],
-  "host_permissions": [
-    "https://www.justice.gov/epstein/files",
-    "https://www.justice.gov/epstein/files/*",
-    "https://assets.getkino.com/documents/",
-    "https://assets.getkino.com/documents/*"
   ],
   "action": {
     "default_popup": "popup.html",
